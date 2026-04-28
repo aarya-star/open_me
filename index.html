@@ -3,40 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Miss You Dishu</title>
+<title>Miss You Dishu ❤️</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
 <style>
-body{
+*{
     margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
     font-family:Arial,sans-serif;
     background:linear-gradient(135deg,#ffffff,#ffd6e7,#ffb6d5);
     min-height:100vh;
     text-align:center;
     overflow-x:hidden;
     position:relative;
+    padding:20px;
 }
 
+/* Sparkles */
 .sparkle{
     position:fixed;
     width:8px;
     height:8px;
-    background:white;
     border-radius:50%;
-    box-shadow:0 0 10px #ff4fa3,0 0 20px #fff;
+    background:white;
+    box-shadow:0 0 10px #ff4fa3,0 0 20px white;
     animation:floatUp linear infinite;
     z-index:0;
 }
 
 @keyframes floatUp{
-    from{transform:translateY(100vh) scale(.5);opacity:0;}
+    from{
+        transform:translateY(100vh) scale(.4);
+        opacity:0;
+    }
     20%{opacity:1;}
-    to{transform:translateY(-10vh) scale(1.2);opacity:0;}
+    to{
+        transform:translateY(-10vh) scale(1.2);
+        opacity:0;
+    }
 }
 
 .wrap{
-    padding:30px;
+    max-width:900px;
+    margin:auto;
     position:relative;
     z-index:2;
 }
@@ -45,8 +59,33 @@ h1{
     font-family:'Great Vibes',cursive;
     font-size:4rem;
     color:#8b0000;
+    margin-bottom:15px;
 }
 
+.subtitle{
+    color:#444;
+    margin-bottom:20px;
+}
+
+/* Buttons */
+button{
+    padding:12px 20px;
+    border:none;
+    border-radius:30px;
+    background:#b3001b;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    margin:6px;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+/* Photo Book */
 .book{
     width:320px;
     height:430px;
@@ -55,9 +94,9 @@ h1{
 }
 
 .inner{
-    position:relative;
     width:100%;
     height:100%;
+    position:relative;
     transform-style:preserve-3d;
     transition:1.2s;
 }
@@ -71,23 +110,28 @@ h1{
     inset:0;
     border-radius:20px;
     backface-visibility:hidden;
+    -webkit-backface-visibility:hidden;
     box-shadow:0 15px 30px rgba(0,0,0,.25);
 }
 
 .cover{
     background:linear-gradient(135deg,#ff4f88,#ffc1dc);
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
+    color:white;
     font-size:2rem;
-    color:#fff;
     font-weight:bold;
 }
 
 .page{
-    background:#fff;
+    background:white;
     padding:10px;
-    transform:translateZ(-2px);
+    transform:rotateY(0deg) translateZ(2px);
+    z-index:2;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
 
 .page img{
@@ -95,54 +139,57 @@ h1{
     height:100%;
     object-fit:cover;
     border-radius:14px;
+    display:block;
 }
 
-button{
-    padding:12px 18px;
-    border:none;
-    border-radius:999px;
-    margin:8px;
-    background:#b3001b;
-    color:#fff;
-    font-weight:bold;
-    cursor:pointer;
-}
-
+/* Card */
 .card{
-    max-width:760px;
-    margin:20px auto;
     background:rgba(255,255,255,.45);
     padding:25px;
     border-radius:20px;
+    max-width:760px;
+    margin:30px auto;
+}
+
+.card h2{
+    margin-bottom:20px;
+    color:#8b0000;
 }
 
 .question{
-    margin:25px 0;
     text-align:left;
+    margin:25px 0;
 }
 
 .question h3{
-    color:#000;
-    margin-bottom:12px;
+    margin-bottom:10px;
+    color:black;
 }
 
 .option{
     display:block;
     width:100%;
-    margin:8px 0;
-    background:#fff;
-    color:#000;
-    border:2px solid transparent;
+    text-align:left;
+    background:white;
+    color:black;
 }
 
 .correct{
     background:#2ecc71 !important;
-    color:#fff !important;
+    color:white !important;
 }
 
 .wrong{
     background:#e74c3c !important;
-    color:#fff !important;
+    color:white !important;
+}
+
+@media(max-width:600px){
+    h1{font-size:3rem;}
+    .book{
+        width:280px;
+        height:380px;
+    }
 }
 </style>
 </head>
@@ -151,20 +198,26 @@ button{
 
 <div class="wrap">
 
-<h1> Miss You, Dishu ❤️</h1>
+<h1>I Miss You, Dishu ❤️</h1>
+<p class="subtitle">Open the photo book and answer for me...</p>
 
-<audio id="bgmusic" autoplay loop muted playsinline>
-<source src="Atak Gaya.mp3" type="audio/mpeg">
+<!-- Music -->
+<audio id="bgmusic" loop>
+<source src="./Atak Gaya.mp3" type="audio/mpeg">
 </audio>
 
 <button id="musicBtn" onclick="manualPlay()">🎵 Play Music</button>
 
+<!-- Book -->
 <div class="book" id="book">
 <div class="inner">
-<div class="cover">My favorites💕</div>
+
+<div class="cover">My Favorites 💕</div>
+
 <div class="page">
-<img id="photo" src="photo-1.jpeg">
+<img id="photo" src="./photo-1.jpeg" alt="photo">
 </div>
+
 </div>
 </div>
 
@@ -174,104 +227,105 @@ button{
 <button onclick="next()">Next</button>
 </div>
 
+<!-- Questionnaire -->
 <div class="card">
 <h2>Questionnaire 💌</h2>
 
-<!-- EDIT QUESTIONS BELOW -->
-
 <div class="question">
 <h3>1. Kaun bada bachha hai?</h3>
-<button class="option" onclick="checkAnswer(this,true)">Me(jhaluuuu)</button>
-<button class="option" onclick="checkAnswer(this,false)">Tum(Dishuuu)</button>
+<button class="option" onclick="checkAnswer(this,true)">Me (jhaluuuu)</button>
+<button class="option" onclick="checkAnswer(this,false)">Tum (Dishuuu)</button>
 </div>
 
 <div class="question">
 <h3>2. Who irritates me more?</h3>
-<button class="option" onclick="checkAnswer(this,true)">teri kami</button>
-<button class="option" onclick="checkAnswer(this,false)">teri harkate</button>
+<button class="option" onclick="checkAnswer(this,true)">Teri kami</button>
+<button class="option" onclick="checkAnswer(this,false)">Teri harkate</button>
 </div>
 
 <div class="question">
-<h3>3. My favorite snack</h3>
+<h3>3. My favorite snack?</h3>
 <button class="option" onclick="checkAnswer(this,true)">Tumhara bicep</button>
 <button class="option" onclick="checkAnswer(this,false)">Bhakarwadi</button>
 </div>
 
 <div class="question">
-<h3>4. kyaaaa tumko yaad ati?</h3>
-<button class="option" onclick="checkAnswer(this,true)">haan ati</button>
-<button class="option" onclick="checkAnswer(this,false)">dusra option</button>
+<h3>4. Kya tumko yaad aati?</h3>
+<button class="option" onclick="checkAnswer(this,true)">Haan aati</button>
+<button class="option" onclick="checkAnswer(this,false)">Dusra option</button>
 </div>
 
 </div>
+
 </div>
 
 <script>
-const photos=[
-'photo-1.jpeg','photo-2.jpeg','photo-3.jpeg',
-'photo-4.jpeg','photo-5.jpeg','photo-6.jpeg'
+const photos = [
+'./photo-1.jpeg',
+'./photo-2.jpeg',
+'./photo-3.jpeg',
+'./photo-4.jpeg',
+'./photo-5.jpeg',
+'./photo-6.jpeg'
 ];
 
-let i=0;
-const img=document.getElementById('photo');
-const music=document.getElementById('bgmusic');
+let i = 0;
+const img = document.getElementById("photo");
+const music = document.getElementById("bgmusic");
+let sparkleStarted = false;
 
 function next(){
- i=(i+1)%photos.length;
- img.src=photos[i];
+    i = (i + 1) % photos.length;
+    img.src = photos[i];
 }
 
 function prev(){
- i=(i-1+photos.length)%photos.length;
- img.src=photos[i];
+    i = (i - 1 + photos.length) % photos.length;
+    img.src = photos[i];
 }
 
 function toggleBook(){
- document.getElementById('book').classList.toggle('open');
+    document.getElementById("book").classList.toggle("open");
 }
 
 function checkAnswer(btn,isCorrect){
- let parent=btn.parentElement;
- let buttons=parent.querySelectorAll('.option');
+    let parent = btn.parentElement;
+    let options = parent.querySelectorAll(".option");
 
- buttons.forEach(b=>b.disabled=true);
+    options.forEach(o => o.disabled = true);
 
- if(isCorrect){
-   btn.classList.add('correct');
- }else{
-   btn.classList.add('wrong');
-   buttons.forEach(b=>{
-      if(b.getAttribute('onclick').includes('true')){
-         b.classList.add('correct');
-      }
-   });
- }
+    if(isCorrect){
+        btn.classList.add("correct");
+    }else{
+        btn.classList.add("wrong");
+        options.forEach(o=>{
+            if(o.getAttribute("onclick").includes("true")){
+                o.classList.add("correct");
+            }
+        });
+    }
 }
 
 function startSparkles(){
- setInterval(()=>{
-   let s=document.createElement('div');
-   s.className='sparkle';
-   s.style.left=Math.random()*100+'vw';
-   s.style.animationDuration=(3+Math.random()*4)+'s';
-   document.body.appendChild(s);
-   setTimeout(()=>s.remove(),7000);
- },200);
+    if(sparkleStarted) return;
+    sparkleStarted = true;
+
+    setInterval(()=>{
+        let s = document.createElement("div");
+        s.className = "sparkle";
+        s.style.left = Math.random()*100 + "vw";
+        s.style.animationDuration = (3 + Math.random()*4) + "s";
+        s.style.width = s.style.height = (4 + Math.random()*8) + "px";
+        document.body.appendChild(s);
+
+        setTimeout(()=>s.remove(),7000);
+    },200);
 }
 
 function manualPlay(){
- music.muted=false;
- music.play();
- startSparkles();
- document.getElementById('musicBtn').style.display='none';
-}
-
-window.onload=()=>{
- music.play().then(()=>{
-   music.muted=false;
-   startSparkles();
-   document.getElementById('musicBtn').style.display='none';
- }).catch(()=>{});
+    music.play();
+    startSparkles();
+    document.getElementById("musicBtn").style.display = "none";
 }
 </script>
 
