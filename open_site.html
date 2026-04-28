@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Miss You Dishu</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#ffffff,#ffd6e7,#ffb6d5);
+    min-height:100vh;
+    text-align:center;
+    overflow-x:hidden;
+    position:relative;
+}
+
+.sparkle{
+    position:fixed;
+    width:8px;
+    height:8px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 0 10px #ff4fa3,0 0 20px #fff;
+    animation:floatUp linear infinite;
+    z-index:0;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(100vh) scale(.5);opacity:0;}
+    20%{opacity:1;}
+    to{transform:translateY(-10vh) scale(1.2);opacity:0;}
+}
+
+.wrap{
+    padding:30px;
+    position:relative;
+    z-index:2;
+}
+
+h1{
+    font-family:'Great Vibes',cursive;
+    font-size:4rem;
+    color:#8b0000;
+}
+
+.book{
+    width:320px;
+    height:430px;
+    margin:30px auto;
+    perspective:1400px;
+}
+
+.inner{
+    position:relative;
+    width:100%;
+    height:100%;
+    transform-style:preserve-3d;
+    transition:1.2s;
+}
+
+.book.open .inner{
+    transform:rotateY(-165deg);
+}
+
+.cover,.page{
+    position:absolute;
+    inset:0;
+    border-radius:20px;
+    backface-visibility:hidden;
+    box-shadow:0 15px 30px rgba(0,0,0,.25);
+}
+
+.cover{
+    background:linear-gradient(135deg,#ff4f88,#ffc1dc);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:2rem;
+    color:#fff;
+    font-weight:bold;
+}
+
+.page{
+    background:#fff;
+    padding:10px;
+    transform:translateZ(-2px);
+}
+
+.page img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:14px;
+}
+
+button{
+    padding:12px 18px;
+    border:none;
+    border-radius:999px;
+    margin:8px;
+    background:#b3001b;
+    color:#fff;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.card{
+    max-width:760px;
+    margin:20px auto;
+    background:rgba(255,255,255,.45);
+    padding:25px;
+    border-radius:20px;
+}
+
+.question{
+    margin:25px 0;
+    text-align:left;
+}
+
+.question h3{
+    color:#000;
+    margin-bottom:12px;
+}
+
+.option{
+    display:block;
+    width:100%;
+    margin:8px 0;
+    background:#fff;
+    color:#000;
+    border:2px solid transparent;
+}
+
+.correct{
+    background:#2ecc71 !important;
+    color:#fff !important;
+}
+
+.wrong{
+    background:#e74c3c !important;
+    color:#fff !important;
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<h1> Miss You, Dishu ❤️</h1>
+
+<audio id="bgmusic" autoplay loop muted playsinline>
+<source src="Atak Gaya.mp3" type="audio/mpeg">
+</audio>
+
+<button id="musicBtn" onclick="manualPlay()">🎵 Play Music</button>
+
+<div class="book" id="book">
+<div class="inner">
+<div class="cover">My favorites💕</div>
+<div class="page">
+<img id="photo" src="photo-1.jpeg">
+</div>
+</div>
+</div>
+
+<div>
+<button onclick="toggleBook()">Open / Close</button>
+<button onclick="prev()">Prev</button>
+<button onclick="next()">Next</button>
+</div>
+
+<div class="card">
+<h2>Questionnaire 💌</h2>
+
+<!-- EDIT QUESTIONS BELOW -->
+
+<div class="question">
+<h3>1. Kaun bada bachha hai?</h3>
+<button class="option" onclick="checkAnswer(this,true)">Me(jhaluuuu)</button>
+<button class="option" onclick="checkAnswer(this,false)">Tum(Dishuuu)</button>
+</div>
+
+<div class="question">
+<h3>2. Who irritates me more?</h3>
+<button class="option" onclick="checkAnswer(this,true)">teri kami</button>
+<button class="option" onclick="checkAnswer(this,false)">teri harkate</button>
+</div>
+
+<div class="question">
+<h3>3. My favorite snack</h3>
+<button class="option" onclick="checkAnswer(this,true)">Tumhara bicep</button>
+<button class="option" onclick="checkAnswer(this,false)">Bhakarwadi</button>
+</div>
+
+<div class="question">
+<h3>4. kyaaaa tumko yaad ati?</h3>
+<button class="option" onclick="checkAnswer(this,true)">haan ati</button>
+<button class="option" onclick="checkAnswer(this,false)">dusra option</button>
+</div>
+
+</div>
+</div>
+
+<script>
+const photos=[
+'photo-1.jpeg','photo-2.jpeg','photo-3.jpeg',
+'photo-4.jpeg','photo-5.jpeg','photo-6.jpeg'
+];
+
+let i=0;
+const img=document.getElementById('photo');
+const music=document.getElementById('bgmusic');
+
+function next(){
+ i=(i+1)%photos.length;
+ img.src=photos[i];
+}
+
+function prev(){
+ i=(i-1+photos.length)%photos.length;
+ img.src=photos[i];
+}
+
+function toggleBook(){
+ document.getElementById('book').classList.toggle('open');
+}
+
+function checkAnswer(btn,isCorrect){
+ let parent=btn.parentElement;
+ let buttons=parent.querySelectorAll('.option');
+
+ buttons.forEach(b=>b.disabled=true);
+
+ if(isCorrect){
+   btn.classList.add('correct');
+ }else{
+   btn.classList.add('wrong');
+   buttons.forEach(b=>{
+      if(b.getAttribute('onclick').includes('true')){
+         b.classList.add('correct');
+      }
+   });
+ }
+}
+
+function startSparkles(){
+ setInterval(()=>{
+   let s=document.createElement('div');
+   s.className='sparkle';
+   s.style.left=Math.random()*100+'vw';
+   s.style.animationDuration=(3+Math.random()*4)+'s';
+   document.body.appendChild(s);
+   setTimeout(()=>s.remove(),7000);
+ },200);
+}
+
+function manualPlay(){
+ music.muted=false;
+ music.play();
+ startSparkles();
+ document.getElementById('musicBtn').style.display='none';
+}
+
+window.onload=()=>{
+ music.play().then(()=>{
+   music.muted=false;
+   startSparkles();
+   document.getElementById('musicBtn').style.display='none';
+ }).catch(()=>{});
+}
+</script>
+
+</body>
+</html>
